@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String?
+  email     String  @unique
+  role      Role    @default(TRAVELER)
+  createdAt DateTime @default(now())
+  trips     Trip[]
+}
+
+enum Role {
+  PLANNER
+  TRAVELER
+}
+
+model Trip {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  destination String
+  price       Float
+  duration    Int      // duration in days
+  description String?
+  images      String?  // JSON array or comma-separated
+  planner     User     @relation(fields: [plannerId], references: [id])
+  plannerId   Int
+  createdAt   DateTime @default(now())
+}
