@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -23,7 +22,6 @@ export default function Login() {
 
   return (
     <>
-      <Navbar />
       <div className="max-w-md mx-auto mt-10 p-6 border rounded bg-white shadow">
         <h1 className="text-2xl mb-4 text-center font-semibold">Login</h1>
         <form onSubmit={handleLogin} className="flex flex-col space-y-3">
