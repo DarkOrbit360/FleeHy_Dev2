@@ -1,40 +1,16 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
 
 export default function Navbar() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const sessionUser = supabase.auth.session()?.user;
-    setUser(sessionUser);
-  }, []);
-
   return (
-    <nav className="flex justify-between p-4 bg-gray-100">
-      <div className="font-bold text-xl">FleeHy</div>
-      <div className="space-x-4">
-        {!user && (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/signup">Signup</Link>
-          </>
-        )}
-        {user && (
-          <>
-            <span>{user.email}</span>
-            <Link href="/host-verification">HOST</Link>
-            <button
-              className="bg-red-500 text-white px-2 py-1 rounded"
-              onClick={async () => {
-                await supabase.auth.signOut();
-                setUser(null);
-              }}
-            >
-              Logout
-            </button>
-          </>
-        )}
+    <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
+      <Link href="/" className="text-2xl font-bold text-gray-800">
+        Fleehy
+      </Link>
+      <div className="flex gap-6 text-gray-700">
+        <Link href="/signup" className="hover:text-blue-600">Join Fleehy</Link>
+        <Link href="/login" className="hover:text-blue-600">Login</Link>
+        <Link href="/host-verification" className="hover:text-blue-600">Become a Host</Link>
+        <Link href="/dashboard" className="hover:text-blue-600">Dashboard</Link>
       </div>
     </nav>
   );
