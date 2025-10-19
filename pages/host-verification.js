@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
 
 export default function HostVerification() {
@@ -67,7 +66,6 @@ export default function HostVerification() {
 
   return (
     <>
-      <Navbar />
       <div className="max-w-lg mx-auto mt-10 p-6 border rounded bg-white shadow">
         <h1 className="text-2xl mb-4 text-center font-semibold">Become a Host</h1>
         <form onSubmit={handleSubmit} className="grid gap-3">
