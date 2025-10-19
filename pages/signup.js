@@ -10,9 +10,14 @@ export default function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { user, error } = await supabase.auth.signUp({ email, password });
-    if (error) alert(error.message);
-    else {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
       alert("Signup successful! Please check your email for confirmation.");
       router.push("/login");
     }
@@ -21,13 +26,13 @@ export default function Signup() {
   return (
     <>
       <Navbar />
-      <div className="max-w-md mx-auto mt-10 p-6 border rounded">
-        <h1 className="text-2xl mb-4">Signup</h1>
+      <div className="max-w-md mx-auto mt-10 p-6 border rounded bg-white shadow">
+        <h1 className="text-2xl mb-4 text-center font-semibold">Join Fleehy</h1>
         <form onSubmit={handleSignup} className="flex flex-col space-y-3">
           <input
             type="email"
             placeholder="Email"
-            className="border p-2"
+            className="border p-2 rounded"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -35,16 +40,16 @@ export default function Signup() {
           <input
             type="password"
             placeholder="Password"
-            className="border p-2"
+            className="border p-2 rounded"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white p-2 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded transition"
           >
-            Signup
+            Sign Up
           </button>
         </form>
       </div>
