@@ -6,15 +6,14 @@ import { useRouter } from "next/router";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
+    setLoading(true);
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    setLoading(false);
     if (error) {
       alert(error.message);
     } else {
@@ -47,9 +46,10 @@ export default function Signup() {
           />
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded transition"
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white p-2 rounded transition"
           >
-            Sign Up
+            {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
       </div>
