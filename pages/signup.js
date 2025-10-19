@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
 
 export default function Signup() {
@@ -24,7 +23,6 @@ export default function Signup() {
 
   return (
     <>
-      <Navbar />
       <div className="max-w-md mx-auto mt-10 p-6 border rounded bg-white shadow">
         <h1 className="text-2xl mb-4 text-center font-semibold">Join Fleehy</h1>
         <form onSubmit={handleSignup} className="flex flex-col space-y-3">
