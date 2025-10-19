@@ -3,13 +3,17 @@ import Navbar from "./Navbar";
 
 export default function Layout({ title = "Fleehy", children }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
       <Head>
         <title>{title}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Navbar />
-      <main className="max-w-6xl mx-auto px-4 py-8">{children}</main>
-    </div>
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main className="max-w-6xl mx-auto px-4 py-8">
+          {children}
+        </main>
+      </div>
+    </>
   );
 }
