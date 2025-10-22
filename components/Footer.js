@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 w-full bg-white border-t">
-      <div className="max-w-6xl mx-auto px-4 py-8 text-sm text-gray-600">
-        <div className="flex flex-wrap gap-4">
-          <Link href="/terms"><a className="hover:text-blue-600">Terms &amp; Conditions</a></Link>
-          <Link href="/privacy"><a className="hover:text-blue-600">Privacy Policy</a></Link>
-          <Link href="/cookies"><a className="hover:text-blue-600">Cookie Policy</a></Link>
-          <Link href="/about"><a className="hover:text-blue-600">About Us</a></Link>
-          <Link href="/help"><a className="hover:text-blue-600">Help</a></Link>
-        </div>
-        <p className="mt-4 text-gray-500">© Fleehy Ltd 2025 – 2026</p>
+    <footer className="bg-white border-t border-gray-200">
+      <div className="max-w-6xl mx-auto px-6 py-6 text-sm text-gray-600 flex flex-wrap gap-4 justify-center">
+        <Link href="/terms" className="hover:text-[#00a2b8]">Terms & Conditions</Link>
+        <Link href="/privacy" className="hover:text-[#00a2b8]">Privacy Policy</Link>
+        <Link href="/cookies" className="hover:text-[#00a2b8]">Cookie Policy</Link>
+        <Link href="/about" className="hover:text-[#00a2b8]">About Us</Link>
+        <Link href="/help" className="hover:text-[#00a2b8]">Help</Link>
+      </div>
+      <div className="text-center text-gray-500 text-xs pb-4">
+        © Fleehy Ltd 2025 – 2026
       </div>
     </footer>
   );
