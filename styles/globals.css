@@ -51,4 +51,19 @@ img, video {
   max-width: 100%;
   height: auto;
 }
+@media (max-width: 640px) {
+  form {
+    border-radius: 1.5rem !important;
+    padding: 1.5rem !important;
+  }
+
+  input, button {
+    font-size: 0.95rem !important;
+  }
+
+  h1 {
+    font-size: 1.9rem !important;
+    line-height: 2.3rem !important;
+  }
+}
 
