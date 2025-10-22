@@ -1,74 +1,90 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import TripCard from '../components/TripCard';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import TripCard from "../components/TripCard";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Home() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Load trending trips (latest) on first render
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/trips"); // no query => latest
+        const json = await res.json();
+        setResults(json || []);
+      } catch (e) {
+        console.error("Failed to load trending trips", e);
+      }
+    })();
+  }, []);
 
   async function search(e) {
     e.preventDefault();
-    const res = await fetch(`/api/trips?destination=${encodeURIComponent(query)}`);
-    const json = await res.json();
-    setResults(json);
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/trips?destination=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      setResults(json || []);
+    } catch (e) {
+      console.error("Search failed", e);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-6 py-12">
-      <header className="text-center max-w-2xl">
-        <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
-          Discover Curated Trips by Local Hosts
-        </h1>
-        <p className="text-gray-600 mb-8">
-          Plan, host, and explore immersive travel experiences through Fleehy.
-        </p>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navbar />
 
-        <div className="flex justify-center gap-4">
-          <Link href="/signup">
-            <a className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-              Join Fleehy
-            </a>
-          </Link>
-          <Link href="/login">
-            <a className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
-              Login
-            </a>
-          </Link>
-        </div>
-      </header>
-
-      <form
-        onSubmit={search}
-        className="flex gap-2 mt-12 w-full max-w-md"
-      >
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search destination"
-          className="flex-1 p-3 border rounded-md shadow-sm"
-        />
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-          Search
-        </button>
-      </form>
-
-      <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-        {results.length === 0 ? (
-          <p className="text-gray-500 text-center col-span-3">
-            Start your search to see available trips.
+      {/* Hero + Search */}
+      <section className="w-full">
+        <div className="max-w-6xl mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800">
+            Where do you want to go?
+          </h1>
+          <p className="mt-3 text-gray-600">
+            TRIPS MADE EASY THAN EVER BEFORE......
           </p>
-        ) : (
-          results.map((t) => <TripCard key={t.id} trip={t} />)
-        )}
+
+          <form onSubmit={search} className="mt-8 mx-auto flex gap-2 max-w-2xl">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Destination"
+              className="flex-1 p-3 border rounded-md shadow-sm bg-white"
+              aria-label="Search destination"
+            />
+            <button
+              disabled={loading}
+              className="px-5 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-60"
+            >
+              {loading ? "Searching..." : "Search"}
+            </button>
+          </form>
+        </div>
       </section>
 
-      <footer className="mt-16 text-center">
-        <Link href="/host-verification">
-          <a className="underline text-blue-600 hover:text-blue-800">
-            Become a Host
-          </a>
-        </Link>
-      </footer>
+      {/* Trending Trips */}
+      <section className="w-full">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-xl font-semibold mb-4">Trending Trips (Recommendations)</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {results && results.length > 0 ? (
+              results.map((t) => <TripCard key={t.id} trip={t} />)
+            ) : (
+              <div className="col-span-full text-gray-500 text-center">
+                {loading ? "Loading trips..." : "No trips yet. Try a different destination."}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
