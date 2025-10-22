@@ -53,34 +53,40 @@ export default function Home() {
 
         {/* Responsive Search Bar */}
         <form
-          onSubmit={search}
-          className="flex flex-col sm:flex-row items-center gap-3 bg-white bg-opacity-95 p-4 rounded-full shadow-lg max-w-4xl w-full sm:w-auto animate-fade-in-up"
-        >
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Destination"
-            className="flex-1 px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-56 md:w-72"
-          />
-          <input
-            type="date"
-            value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
-            className="px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-40"
-          />
-          <input
-            type="date"
-            value={toDate}
-            onChange={(e) => setToDate(e.target.value)}
-            className="px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-40"
-          />
-          <button
-            disabled={loading}
-            className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#007a8d] text-white font-semibold rounded-full shadow-md hover:opacity-90 transition w-full sm:w-auto"
-          >
-            {loading ? "Searching..." : "Search"}
-          </button>
-        </form>
+  onSubmit={search}
+  className="flex flex-col sm:flex-row items-center gap-3 bg-white bg-opacity-90 backdrop-blur-md shadow-lg p-4 sm:p-6 rounded-3xl max-w-4xl w-[90%] mx-auto animate-fade-in-up"
+>
+  <input
+    type="text"
+    value={query}
+    onChange={(e) => setQuery(e.target.value)}
+    placeholder="Destination"
+    className="flex-1 px-4 py-3 sm:py-4 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400 w-full"
+  />
+  
+  <input
+    type="date"
+    value={fromDate}
+    onChange={(e) => setFromDate(e.target.value)}
+    placeholder="From"
+    className="px-4 py-3 sm:py-4 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400 w-full sm:w-auto"
+  />
+  
+  <input
+    type="date"
+    value={toDate}
+    onChange={(e) => setToDate(e.target.value)}
+    placeholder="To"
+    className="px-4 py-3 sm:py-4 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400 w-full sm:w-auto"
+  />
+
+  <button
+    disabled={loading}
+    className="px-6 py-3 sm:py-4 bg-gradient-to-r from-[#00b3ad] to-[#008b9a] text-white font-semibold rounded-full shadow hover:opacity-90 transition disabled:opacity-50 w-full sm:w-auto"
+  >
+    {loading ? "Searching..." : "Search"}
+  </button>
+</form>
       </section>
 
       {/* Trending Trips */}
