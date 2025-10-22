@@ -9,7 +9,6 @@ export default function Home() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
-  // Load trending trips on first render
   useEffect(() => {
     (async () => {
       try {
@@ -22,7 +21,6 @@ export default function Home() {
     })();
   }, []);
 
-  // Handle search
   async function search(e) {
     e.preventDefault();
     setLoading(true);
@@ -39,85 +37,69 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-
-      {/* ===== HERO SECTION ===== */}
+      {/* Hero Section */}
       <section
-        className="relative w-full h-[100vh] bg-cover bg-center flex flex-col items-center justify-center text-center text-white overflow-hidden"
-        style={{ backgroundImage: "url('/beach.avif')" }}
+        className="relative flex flex-col items-center justify-center text-center text-white py-24 px-4 sm:px-6 md:px-8 lg:px-12 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "linear-gradient(rgba(0, 106, 112, 0.35), rgba(0, 106, 112, 0.35)), url('/beach.avif')",
+        }}
       >
-        {/* Soft gradient overlay */}
-       <div className="absolute inset-0 bg-gradient-to-b from-[#007a8d]/30 to-[#005f6b]/40"></div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-up">
+          Trips Made Easier Than Ever Before
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-10 animate-fade-in-up">
+          Discover unique travel experiences hosted by locals around the world.
+        </p>
 
-        <div className="relative z-10 px-4 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-            Trips Made Easier Than Ever Before
-          </h1>
-          <p className="text-lg md:text-xl mb-10 drop-shadow-md">
-            Discover unique travel experiences hosted by locals around the world.
-          </p>
-
-          {/* Search Bar */}
-          <form
-            onSubmit={search}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 bg-white/95 backdrop-blur-md shadow-lg p-4 rounded-full max-w-4xl mx-auto"
+        {/* Responsive Search Bar */}
+        <form
+          onSubmit={search}
+          className="flex flex-col sm:flex-row items-center gap-3 bg-white bg-opacity-95 p-4 rounded-full shadow-lg max-w-4xl w-full sm:w-auto animate-fade-in-up"
+        >
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Destination"
+            className="flex-1 px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-56 md:w-72"
+          />
+          <input
+            type="date"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+            className="px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-40"
+          />
+          <input
+            type="date"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            className="px-4 py-3 rounded-full border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-40"
+          />
+          <button
+            disabled={loading}
+            className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#007a8d] text-white font-semibold rounded-full shadow-md hover:opacity-90 transition w-full sm:w-auto"
           >
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Destination"
-              className="flex-1 px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#00b3ad] text-gray-700"
-            />
-            <input
-              type="date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-              className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#00b3ad] text-gray-700"
-            />
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-              className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#00b3ad] text-gray-700"
-            />
-            <button
-              disabled={loading}
-              className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#007a8d] text-white font-semibold rounded-full shadow hover:opacity-90 transition disabled:opacity-50"
-            >
-              {loading ? "Searching..." : "Search"}
-            </button>
-          </form>
-        </div>
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </form>
       </section>
 
-      {/* ===== TRENDING TRIPS ===== */}
-      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-8">
+      {/* Trending Trips */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-12">
+        <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 text-center">
           Trending Trips
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {results.length > 0 ? (
             results.map((t) => <TripCard key={t.id} trip={t} />)
           ) : (
-            <div className="col-span-full text-gray-500">
+            <div className="col-span-full text-gray-500 text-center">
               {loading ? "Loading..." : "No trips yet. Try searching a destination."}
             </div>
           )}
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-gradient-to-r from-[#007a8d] to-[#006874] text-white text-center py-6 mt-auto">
-        <div className="flex flex-wrap justify-center gap-6 text-sm mb-3">
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Cookie Policy</a>
-          <a href="#">About Us</a>
-          <a href="#">Help</a>
-        </div>
-        <p className="text-xs text-white/80">
-          © FleeHy Ltd 2025 – 2026
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
