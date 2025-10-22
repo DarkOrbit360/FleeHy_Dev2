@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="w-full bg-white bg-opacity-80 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         <Link href="/" className="text-3xl font-extrabold text-[#008b9a] tracking-tight">
-          FLEEHY
+          FleeHy
         </Link>
         <div className="flex items-center gap-6 text-gray-700 font-medium">
           <Link href="/login?from=host" className="hover:text-[#00a2b8]">Host</Link>
