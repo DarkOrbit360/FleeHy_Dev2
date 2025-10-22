@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Let the hero background image take full width */
+/* 🌊 Base Page Setup */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* keep neutral */
+  background-color: #ffffff; /* Keep neutral for light sections */
   color: #111827; /* Tailwind gray-900 */
   scroll-behavior: smooth;
 }
 
-/* Fade-in upward animation */
+/* ✨ Fade-in upward animation */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -27,18 +27,18 @@ html, body {
   animation: fade-in-up 1.4s ease-out;
 }
 
-/* Smooth transitions for theme and color */
+/* 🌈 Smooth theme & color transitions */
 body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Footer links */
+/* 🦶 Footer links hover effect */
 footer a:hover {
   text-decoration: underline;
   color: #aef2ec;
 }
 
-/* Optional: subtle glow on hover for buttons */
+/* 💫 Subtle glow on hover for interactive buttons */
 button:hover {
   box-shadow: 0 0 12px rgba(0, 179, 173, 0.6);
   transition: all 0.3s ease-in-out;
