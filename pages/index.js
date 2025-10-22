@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import TripCard from "../components/TripCard";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,16 +8,17 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
-  // Load trending trips (latest) on first render
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("/api/trips"); // no query => latest
+        const res = await fetch("/api/trips");
         const json = await res.json();
         setResults(json || []);
       } catch (e) {
-        console.error("Failed to load trending trips", e);
+        console.error("Trending trips load error:", e);
       }
     })();
   }, []);
@@ -30,57 +31,70 @@ export default function Home() {
       const json = await res.json();
       setResults(json || []);
     } catch (e) {
-      console.error("Search failed", e);
+      console.error(e);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#c0f7f2] to-[#e8fbff]">
+      {/* Navbar */}
       <Navbar />
 
-      {/* Hero + Search */}
-      <section className="w-full">
-        <div className="max-w-6xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800">
-            Where do you want to go?
-          </h1>
-          <p className="mt-3 text-gray-600">
-            TRIPS MADE EASY THAN EVER BEFORE......
-          </p>
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center px-4 py-12 md:py-20">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-2">
+          TRIPS MADE EASY THAN EVER BEFORE......
+        </h2>
 
-          <form onSubmit={search} className="mt-8 mx-auto flex gap-2 max-w-2xl">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Destination"
-              className="flex-1 p-3 border rounded-md shadow-sm bg-white"
-              aria-label="Search destination"
-            />
-            <button
-              disabled={loading}
-              className="px-5 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-60"
-            >
-              {loading ? "Searching..." : "Search"}
-            </button>
-          </form>
-        </div>
+        <p className="text-lg text-gray-600 mb-8">Where do you want to go?</p>
+
+        {/* Search Bar */}
+        <form
+          onSubmit={search}
+          className="flex flex-col sm:flex-row items-center gap-3 bg-white shadow-md p-4 rounded-full max-w-3xl w-full"
+        >
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Destination"
+            className="flex-1 px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          />
+          <input
+            type="date"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+            className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          />
+          <input
+            type="date"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          />
+          <button
+            disabled={loading}
+            className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#00a2b8] text-white font-semibold rounded-full shadow hover:opacity-90 transition disabled:opacity-50"
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </form>
       </section>
 
       {/* Trending Trips */}
-      <section className="w-full">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-xl font-semibold mb-4">Trending Trips (Recommendations)</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results && results.length > 0 ? (
-              results.map((t) => <TripCard key={t.id} trip={t} />)
-            ) : (
-              <div className="col-span-full text-gray-500 text-center">
-                {loading ? "Loading trips..." : "No trips yet. Try a different destination."}
-              </div>
-            )}
-          </div>
+      <section className="max-w-6xl mx-auto px-4 pb-20">
+        <h3 className="text-xl font-semibold text-gray-800 mb-6">
+          Trending Trips
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {results.length > 0 ? (
+            results.map((t) => <TripCard key={t.id} trip={t} />)
+          ) : (
+            <div className="col-span-full text-gray-500 text-center">
+              {loading ? "Loading..." : "No trips yet. Try searching a destination."}
+            </div>
+          )}
         </div>
       </section>
 
