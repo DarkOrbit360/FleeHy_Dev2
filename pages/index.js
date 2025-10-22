@@ -46,7 +46,7 @@ export default function Home() {
         style={{ backgroundImage: "url('/beach.avif')" }}
       >
         {/* Soft gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#007a8d]/60 to-[#005f6b]/70"></div>
+       <div className="absolute inset-0 bg-gradient-to-b from-[#007a8d]/30 to-[#005f6b]/40"></div>
 
         <div className="relative z-10 px-4 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
