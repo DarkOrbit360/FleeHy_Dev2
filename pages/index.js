@@ -42,7 +42,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-4 py-12 md:py-20">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-2">
-          TRIPS MADE EASY THAN EVER BEFORE......
+          TRIPS MADE EASIER THAN EVER BEFORE !!
         </h2>
 
         <p className="text-lg text-gray-600 mb-8">Where do you want to go?</p>
