@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import TripCard from "../components/TripCard";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -39,8 +38,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#c0f7f2] to-[#e8fbff]">
-      {/* Navbar */}
-      <Navbar />
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-4 py-12 md:py-20">
