@@ -2,19 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { background: #f8fafc; }
-.container { max-width: 1100px; }
-@keyframes fadeInUp {
-  0% {
+/* Let the hero background image take full width */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* keep neutral */
+  color: #111827; /* Tailwind gray-900 */
+  scroll-behavior: smooth;
+}
+
+/* Fade-in upward animation */
+@keyframes fade-in-up {
+  from {
     opacity: 0;
     transform: translateY(30px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 1.5s ease-out;
+.animate-fade-in-up {
+  animation: fade-in-up 1.4s ease-out;
+}
+
+/* Smooth transitions for theme and color */
+body {
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Footer links */
+footer a:hover {
+  text-decoration: underline;
+  color: #aef2ec;
+}
+
+/* Optional: subtle glow on hover for buttons */
+button:hover {
+  box-shadow: 0 0 12px rgba(0, 179, 173, 0.6);
+  transition: all 0.3s ease-in-out;
 }
