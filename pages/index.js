@@ -43,7 +43,7 @@ export default function Home() {
       {/* ===== HERO SECTION ===== */}
       <section
         className="relative w-full h-[100vh] bg-cover bg-center flex flex-col items-center justify-center text-center text-white overflow-hidden"
-        style={{ backgroundImage: "url('/beach-bg.jpeg')" }}
+        style={{ backgroundImage: "url('/beach.avif')" }}
       >
         {/* Soft gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#007a8d]/60 to-[#005f6b]/70"></div>
