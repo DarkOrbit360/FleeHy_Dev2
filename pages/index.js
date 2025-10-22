@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import TripCard from "../components/TripCard";
 import Footer from "../components/Footer";
 
@@ -37,53 +36,63 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#c0f7f2] to-[#e8fbff]">
-
+    <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center px-4 py-12 md:py-20">
-        <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-2">
-          TRIPS MADE EASIER THAN EVER BEFORE !!
-        </h2>
+      <section
+        className="relative h-[90vh] flex flex-col justify-center items-center text-center"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1950&q=80')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#008b9a]/90 via-[#007a8d]/80 to-[#006874]/85"></div>
 
-        <p className="text-lg text-gray-600 mb-8">Where do you want to go?</p>
+        <div className="relative z-10 max-w-3xl px-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3 drop-shadow-lg">
+            Trips Made Easier Than Ever Before
+          </h1>
+          <p className="text-lg text-teal-100 mb-10">
+            Discover unique travel experiences hosted by locals around the world.
+          </p>
 
-        {/* Search Bar */}
-        <form
-          onSubmit={search}
-          className="flex flex-col sm:flex-row items-center gap-3 bg-white shadow-md p-4 rounded-full max-w-3xl w-full"
-        >
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Destination"
-            className="flex-1 px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
-          />
-          <input
-            type="date"
-            value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
-            className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
-          />
-          <input
-            type="date"
-            value={toDate}
-            onChange={(e) => setToDate(e.target.value)}
-            className="px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400"
-          />
-          <button
-            disabled={loading}
-            className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#00a2b8] text-white font-semibold rounded-full shadow hover:opacity-90 transition disabled:opacity-50"
+          {/* Search Bar */}
+          <form
+            onSubmit={search}
+            className="bg-[#007a8d]/90 backdrop-blur-lg rounded-3xl p-5 shadow-xl flex flex-col md:flex-row gap-4 md:gap-2 items-center max-w-4xl mx-auto"
           >
-            {loading ? "Searching..." : "Search"}
-          </button>
-        </form>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Destination"
+              className="flex-1 px-5 py-3 rounded-2xl bg-white text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#32d1c0]"
+            />
+            <input
+              type="date"
+              value={fromDate}
+              onChange={(e) => setFromDate(e.target.value)}
+              className="px-5 py-3 rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#32d1c0]"
+            />
+            <input
+              type="date"
+              value={toDate}
+              onChange={(e) => setToDate(e.target.value)}
+              className="px-5 py-3 rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#32d1c0]"
+            />
+            <button
+              disabled={loading}
+              className="px-8 py-3 bg-gradient-to-r from-[#00d0b5] to-[#00a4b5] text-white font-semibold rounded-2xl hover:opacity-90 shadow-md transition disabled:opacity-50"
+            >
+              {loading ? "Searching..." : "Search"}
+            </button>
+          </form>
+        </div>
       </section>
 
       {/* Trending Trips */}
-      <section className="max-w-6xl mx-auto px-4 pb-20">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6">
-          Trending Trips
-        </h3>
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Trending Trips</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {results.length > 0 ? (
             results.map((t) => <TripCard key={t.id} trip={t} />)
