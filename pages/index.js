@@ -24,15 +24,15 @@ export default function Home() {
         </p>
 
         <div className="flex justify-center gap-4">
-          <Link href="/signup">
-            <a className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          <Link href="/signup" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+           
               Join Fleehy
-            </a>
+          
           </Link>
-          <Link href="/login">
-            <a className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
+          <Link href="/login" className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
+           
               Login
-            </a>
+            
           </Link>
         </div>
       </header>
@@ -63,10 +63,10 @@ export default function Home() {
       </section>
 
       <footer className="mt-16 text-center">
-        <Link href="/host-verification">
-          <a className="underline text-blue-600 hover:text-blue-800">
+        <Link href="/host-verification" className="underline text-blue-600 hover:text-blue-800">
+          
             Become a Host
-          </a>
+         
         </Link>
       </footer>
     </div>
