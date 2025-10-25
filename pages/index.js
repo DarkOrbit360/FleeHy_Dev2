@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TripCard from "../components/TripCard";
 import Footer from "../components/Footer";
+import Link from "next/link";
 
 export default function Home() {
   const [query, setQuery] = useState("");
