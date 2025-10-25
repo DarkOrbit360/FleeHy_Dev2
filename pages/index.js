@@ -14,6 +14,10 @@ export default function Home() {
     (async () => {
       try {
         const res = await fetch("/api/trips");
+        if (!res.ok) {
+          // Handles HTTP errors (404, 500, etc.)
+          throw new Error(`Server error: ${res.status}`);
+        }
         const json = await res.json();
         setResults(json || []);
       } catch (e) {
@@ -26,7 +30,13 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`/api/trips?destination=${encodeURIComponent(query)}`);
+      const res = await fetch(
+        `/api/trips?destination=${encodeURIComponent(query)}`
+      );
+      if (!res.ok) {
+        // Handles HTTP errors (404, 500, etc.)
+        throw new Error(`Server error: ${res.status}`);
+      }
       const json = await res.json();
       setResults(json || []);
     } catch (e) {
@@ -42,7 +52,8 @@ export default function Home() {
       <section
         className="relative flex flex-col items-center justify-center text-center text-white py-24 px-4 sm:px-6 md:px-8 lg:px-12 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "linear-gradient(rgba(0, 106, 112, 0.35), rgba(0, 106, 112, 0.35)), url('/beach.avif')",
+          backgroundImage:
+            "linear-gradient(rgba(0, 106, 112, 0.35), rgba(0, 106, 112, 0.35)), url('/beach.avif')",
         }}
       >
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-up">
@@ -53,23 +64,22 @@ export default function Home() {
         </p>
 
         <div className="flex justify-center gap-4">
-          <Link href="/signup" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-           
-              Join Fleehy
-          
+          <Link
+            href="/signup"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Join Fleehy
           </Link>
-          <Link href="/login" className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
-           
-              Login
-            
+          <Link
+            href="/login"
+            className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition"
+          >
+            Login
           </Link>
         </div>
       </section>
 
-      <form
-        onSubmit={search}
-        className="flex gap-2 mt-12 w-full max-w-md"
-      >
+      <form onSubmit={search} className="flex gap-2 mt-12 w-full max-w-md">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -92,10 +102,11 @@ export default function Home() {
       </section>
 
       <footer className="mt-16 text-center">
-        <Link href="/host-verification" className="underline text-blue-600 hover:text-blue-800">
-          
-            Become a Host
-         
+        <Link
+          href="/host-verification"
+          className="underline text-blue-600 hover:text-blue-800"
+        >
+          Become a Host
         </Link>
       </footer>
     </div>
