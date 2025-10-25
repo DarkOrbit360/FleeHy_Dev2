@@ -47,65 +47,56 @@ export default function Home() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-up">
           Trips Made Easier Than Ever Before
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-10 animate-fade-in-up">
-          Discover unique travel experiences hosted by locals around the world.
+        <p className="text-gray-600 mb-8">
+          Plan, host, and explore immersive travel experiences through Fleehy.
         </p>
 
-        {/* Responsive Search Bar */}
-        <form
-  onSubmit={search}
-  className="flex flex-col sm:flex-row items-center gap-3 bg-white/90 backdrop-blur-lg shadow-lg px-6 py-4 rounded-full max-w-4xl w-[90%] mx-auto animate-fade-in-up"
->
-  <input
-    type="text"
-    value={query}
-    onChange={(e) => setQuery(e.target.value)}
-    placeholder="Destination"
-    className="flex-1 px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400"
-  />
-
-  <input
-    type="date"
-    value={fromDate}
-    onChange={(e) => setFromDate(e.target.value)}
-    placeholder="From"
-    className="px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400 w-full sm:w-auto"
-  />
-
-  <input
-    type="date"
-    value={toDate}
-    onChange={(e) => setToDate(e.target.value)}
-    placeholder="To"
-    className="px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-400 text-gray-700 placeholder-gray-400 w-full sm:w-auto"
-  />
-
-  <button
-    disabled={loading}
-    className="px-6 py-3 bg-gradient-to-r from-[#00b3ad] to-[#008b9a] text-white font-semibold rounded-full shadow hover:opacity-90 transition disabled:opacity-50 w-full sm:w-auto"
-  >
-    {loading ? "Searching..." : "Search"}
-  </button>
-</form>
-      </section>
-
-      {/* Trending Trips */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-12">
-        <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 text-center">
-          Trending Trips
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {results.length > 0 ? (
-            results.map((t) => <TripCard key={t.id} trip={t} />)
-          ) : (
-            <div className="col-span-full text-gray-500 text-center">
-              {loading ? "Loading..." : "No trips yet. Try searching a destination."}
-            </div>
-          )}
+        <div className="flex justify-center gap-4">
+          <Link href="/signup" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+           
+              Join Fleehy
+          
+          </Link>
+          <Link href="/login" className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
+           
+              Login
+            
+          </Link>
         </div>
       </section>
 
-      <Footer />
+      <form
+        onSubmit={search}
+        className="flex gap-2 mt-12 w-full max-w-md"
+      >
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search destination"
+          className="flex-1 p-3 border rounded-md shadow-sm"
+        />
+        <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          Search
+        </button>
+      </form>
+
+      <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+        {results.length === 0 ? (
+          <p className="text-gray-500 text-center col-span-3">
+            Start your search to see available trips.
+          </p>
+        ) : (
+          results.map((t) => <TripCard key={t.id} trip={t} />)
+        )}
+      </section>
+
+      <footer className="mt-16 text-center">
+        <Link href="/host-verification" className="underline text-blue-600 hover:text-blue-800">
+          
+            Become a Host
+         
+        </Link>
+      </footer>
     </div>
   );
 }

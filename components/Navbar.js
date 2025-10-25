@@ -2,19 +2,23 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#008b9a] via-[#007a8d] to-[#006874] backdrop-blur-lg bg-opacity-90 text-white shadow-md">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-        <Link href="/" className="text-3xl font-extrabold tracking-tight text-white">
-          FleeHy
+    <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
+      <Link href="/" className="text-2xl font-bold text-gray-800">
+Fleehy
+      </Link>
+      <div className="flex gap-6 text-gray-700">
+        <Link href="/signup" className="hover:text-blue-600">
+          Join Fleehy
         </Link>
-        <div className="flex items-center gap-6 font-medium">
-          <Link href="/login?from=host" className="hover:text-[#32d1c0] transition">
-            Host
-          </Link>
-          <Link href="/login" className="hover:text-[#32d1c0] transition">
-            Login
-          </Link>
-        </div>
+        <Link href="/login" className="hover:text-blue-600">
+          Login
+        </Link>
+        <Link href="/host-verification" className="hover:text-blue-600">
+          Become a Host
+        </Link>
+        <Link href="/dashboard" className="hover:text-blue-600">
+          Dashboard
+        </Link>
       </div>
     </nav>
   );
