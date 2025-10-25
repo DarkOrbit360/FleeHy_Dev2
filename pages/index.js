@@ -75,7 +75,7 @@ export default function Home() {
           placeholder="Search destination"
           className="flex-1 p-3 border rounded-md shadow-sm"
         />
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-blue-700">
           Search
         </button>
       </form>
